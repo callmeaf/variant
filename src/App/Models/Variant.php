@@ -7,6 +7,8 @@ use Callmeaf\Base\App\Traits\Model\HasDate;
 use Callmeaf\Base\App\Traits\Model\HasSlug;
 use Callmeaf\Base\App\Traits\Model\HasStatus;
 use Callmeaf\Base\App\Traits\Model\HasType;
+use Callmeaf\Product\App\Repo\Contracts\ProductRepoInterface;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Variant extends BaseModel
@@ -40,4 +42,12 @@ class Variant extends BaseModel
         ];
     }
 
+    public function product(): BelongsTo
+    {
+        /**
+         * @var ProductRepoInterface $productRepo
+         */
+        $productRepo = app(ProductRepoInterface::class);
+        return $this->belongsTo($productRepo->getModel()::class,'product_slug',$productRepo->getModel()->getKeyName());
+    }
 }
