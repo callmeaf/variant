@@ -12,5 +12,10 @@ use Callmeaf\Variant\App\Http\Resources\Api\V1\VariantResource;
  */
 interface VariantRepoInterface extends BaseRepoInterface
 {
-
+    /**
+     * @param mixed $id
+     * @param int $qty
+     * @return VariantResource
+     */
+    public function decreaseStock(mixed $id,int $qty = 1);
 }
